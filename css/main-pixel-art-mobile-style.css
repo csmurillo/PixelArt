@@ -1,0 +1,60 @@
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    #color-input-container{
+        display: none;
+    }
+    #pan-zoom-container{
+        display: none;
+    }
+    /* MAIN */
+    /* screen size 600px and below style */
+    #pixel-art-option-container-mobile{
+        width:100%; height: 200px;
+        background-color: rgb(253, 253, 253);
+        position: absolute;
+        left:0; bottom: 0;
+        display: flex;
+        outline:1px solid black;
+    }
+    /* pixel-art-option-container-mobile children:
+        color-container-mobile
+        pan-zoom-container-mobile
+    */
+    #color-container-mobile{
+        width:75%; height: 100%;
+    }
+    /* color-container-mobile children:
+        color-title-container-mobile
+        selectable-colors-container-mobile
+    */
+    #color-title-container-mobile{
+        font-family: 'Cairo', sans-serif;
+        font-size: 30px;
+        font-weight: bold;
+        width:100%; height: 20%;
+    }
+    #selectable-colors-container-mobile{
+        width:100%; height: 80%;
+    }
+    #pan-zoom-container-mobile{
+        width:25%; height: 100%;
+        position: relative;
+        border-left: 1px solid black;
+    }
+    #pan-zoom-title-container-mobile{
+        font-family: 'Cairo', sans-serif;
+        font-size: 30px;
+        font-weight: bold;
+        width:100%; height: 20%;
+    }
+    #pan-zoom-check-box-mobile{
+        width:100%; height: 80%;
+    }
+    #pan-zoom-mobile{
+        width:45px; height: 45px;
+    }
+
+}

@@ -1,24 +1,80 @@
-window.onload=initPixelBoard();
-function initPixelBoard(){
-    // console.log("hello");
-    var pixelBoard=document.getElementById("pixel-board");
-    var row=0;
-    for(var i=0; pixelBoard.offsetHeight/20>i;i++){
-        const pixelRow = document.createElement("div");
-        pixelRow.style.display="flex";
-        pixelRow.id="row-"+row;
-        pixelRow.style.width=pixelBoard.offsetWidth+"px";
-        pixelRow.style.height=20+"px";
-        for(var j=0; pixelBoard.offsetWidth/20>j;j++){
-            const pixelBox = document.createElement("div");
-            pixelBox.className="pixel-box";
-            pixelBox.style.height="20px";
-            pixelBox.style.width="20px";
-            pixelBox.style.borderRight="1px solid black";
-            pixelBox.style.borderBottom="1px solid black";
-            pixelRow.appendChild(pixelBox);
-        }
-        pixelBoard.appendChild(pixelRow);
-        row++;
+window.onload=()=>{
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+        initCanvasBoardMobile();
+        console.log('MOBILE');
     }
+    else{
+        initCanvasBoard();
+        console.log('BROWSER');
+    }
+};
+
+function initCanvasBoard(){
+    let canvasBoard=document.getElementById('pixel-canvas-board');
+    let screenSizeWidth=window.screen.availWidth;
+    let screenSizeHeight=window.screen.availHeight*.85;
+    canvasBoard.width=screenSizeWidth;
+    canvasBoard.height=screenSizeHeight;
+    canvasBoard.style.width=screenSizeWidth+'px';
+    canvasBoard.style.height=screenSizeHeight+'px';
+
+    var startX=0;
+    for(let i=0; i<screenSizeWidth;i++){
+        const ctx = canvasBoard.getContext('2d');
+        ctx.strokeStyle = 'rgb(40,40,40)';
+
+        ctx.beginPath();
+        ctx.moveTo(startX, 0);
+        ctx.lineTo(startX, screenSizeHeight)
+        ctx.stroke();
+        startX=startX+20;
+    }
+    var startY=0;
+    for(let j=0; j<screenSizeHeight;j++){
+        const ctx = canvasBoard.getContext('2d');
+        ctx.strokeStyle = 'rgb(40,40,40)';
+
+        ctx.beginPath();
+        ctx.moveTo(0, startY);
+        ctx.lineTo(screenSizeWidth, startY)
+        ctx.stroke();
+        startY=startY+20;
+    }
+}
+function initCanvasBoardMobile(){
+    let canvasBoardGridContainer=document.getElementById('pixel-canvas-grid-board-container');
+    
+    let canvasBoard=document.getElementById('pixel-canvas-board');
+    let screenSizeWidth=canvasBoardGridContainer.offsetWidth;
+    let screenSizeHeight=canvasBoardGridContainer.offsetHeight;
+    canvasBoard.width=screenSizeWidth;
+    canvasBoard.height=screenSizeHeight;
+    canvasBoard.style.width=screenSizeWidth+'px';
+    canvasBoard.style.height=screenSizeHeight+'px';
+
+    var startX=0;
+    for(let i=0; i<screenSizeWidth;i++){
+        const ctx = canvasBoard.getContext('2d');
+        ctx.strokeStyle = 'rgb(40,40,40)';
+
+        ctx.beginPath();
+        ctx.moveTo(startX, 0);
+        ctx.lineTo(startX, screenSizeHeight)
+        ctx.stroke();
+        startX=startX+20;
+    }
+    var startY=0;
+    for(let j=0; j<screenSizeHeight;j++){
+        const ctx = canvasBoard.getContext('2d');
+        ctx.strokeStyle = 'rgb(40,40,40)';
+
+        ctx.beginPath();
+        ctx.moveTo(0, startY);
+        ctx.lineTo(screenSizeWidth, startY)
+        ctx.stroke();
+        startY=startY+20;
+    }
+}
+function colorClick(){
+    document.getElementById('color-input').click();
 }

@@ -2,10 +2,14 @@
 <html>
     <head>
         <title>Pixel Art</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300&display=swap" rel="stylesheet">
         <!-- CSS only -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="./css/header-pixel-art-style.css" />
+        <link rel="stylesheet" type="text/css" href="./css/header-pixel-art-mobile-style.css" />
         <link rel="stylesheet" type="text/css" href="./css/main-pixel-art-style.css" />
+        <link rel="stylesheet" type="text/css" href="./css/main-pixel-art-mobile-style.css" />
     </head>
     <body>
         <header>
@@ -29,23 +33,25 @@
             </nav>
         </header>
         <main>
-            <div id="pixel-canvas-board-container">
+            <div id="pixel-canvas-grid-board-container">
                 <!-- <div style="display: flex; position:absolute;">
-                    <div id="box-1" style='width:20px; height:20px; outline: 1px solid blue;'>
+                    <div id="box-1" style='width:40px; height:40px; outline: 1px solid blue;'>
                     </div>
-                    <div id="box-2" style='width:20px; height:20px; outline: 1px solid red; '>
+                    <div id="box-2" style='width:40px; height:40px; outline: 1px solid red; '>
                     </div>
                 </div> -->
+                <div id="pixel-canvas-grid-board">
+                </div>
                 <canvas id="pixel-canvas-board" width="0" height="0">
                 </canvas>
-                <div id="color-input-container" class="center-content" onclick="colorClick();">
-                    <div id="color-block">
+                <div id="color-input-container" onclick="colorClick();">
                         <div id="color-container" class="center-content">
                             <div id="color"></div>
                         </div>
-                        <div id="color-title" class="center-content">Color</div>
-                    </div>
-                    <input type="color" id="color-input" name="color" style="position: absolute; left:0; top:0; width:0px; height:0px; z-index: -1;">
+                        <div id="color-title" class="center-content">
+                            <label for="color">Current Color</label>
+                        </div>
+                        <input type="color" id="color-input" name="color">
                 </div>
                 <div id="pan-zoom-container">
                     <div id="pan-zoom-title-container" class="center-content">
@@ -62,15 +68,9 @@
                     <div id="color-title-container-mobile" class="center-content">
                         Colors
                     </div>
-                    <div id="multi-colors-container-mobile" class="center-content">
-                        <div id="color-row-mobile">
-                            <div id="color-1" class="color" ></div>
-                            <div id="color-2" class="color" ></div>
-                            <div id="color-3" class="color" ></div>
-                            <div id="color-4" class="color" ></div>
-                            <div id="color-5" class="color" ></div>
-                            <div id="color-6" class="color" ></div>
-                        </div>
+                    <div id="selectable-colors-container-mobile" class="center-content">
+                        <!-- requires slider -->
+                        
                     </div>
                 </div>
                 <div id="pan-zoom-container-mobile">
@@ -88,6 +88,7 @@
     </body>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-    <!-- <script src="/js/initBoard.js"></script> -->
-    <script src="/js/initCanvasBoard.js"></script>
+    <script src="/js/boardOption.js"></script>
+    <script src="/js/initBoard.js"></script>
+    
 </html>

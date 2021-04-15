@@ -1,0 +1,30 @@
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    /* HEADER */
+    #logo-container{
+        width:240px; height: 100%;
+    }
+    #logo{
+        width:180px; height: 140px;
+    }
+    #download-container{
+        display: none;
+    }
+    #hamburger-icon-container{
+        width:180px; height: 100%;
+        display: flex;
+    }
+    #hamburger-icon{
+        width:80px; height: 80px;
+        font-size: 28px;
+        background-color: slategrey;
+    }
+    #drop-down-item-container{
+        position: absolute;
+        right:50px;
+        font-size: 30px;
+    }
+}
