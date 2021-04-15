@@ -1,5 +1,6 @@
 window.onload=initPixelBoard();
 function initPixelBoard(){
+    // console.log("hello");
     var pixelBoard=document.getElementById("pixel-board");
     var row=0;
     for(var i=0; pixelBoard.offsetHeight/20>i;i++){
