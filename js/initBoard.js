@@ -1,13 +1,49 @@
 window.onload=()=>{
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
         initCanvasBoardMobile();
+        initCanvasBoardGrid();
         console.log('MOBILE');
     }
     else{
         initCanvasBoard();
+        initCanvasBoardGrid();
         console.log('BROWSER');
     }
 };
+function initCanvasBoardGrid(){
+    let canvasBoardGrid=document.getElementById('pixel-canvas-grid-board');
+    canvasBoardGrid.style.backgroundColor="";
+    let canvasBoard=document.getElementById('pixel-canvas-board');
+    let canvasBoardGridWidth=canvasBoard.offsetWidth;
+    let canvasBoardGridHeight=canvasBoard.offsetHeight;
+    canvasBoardGrid.style.width=canvasBoardGridWidth+'px';
+    canvasBoardGrid.style.height=canvasBoardGridHeight+'px';
+    // id row & id block
+    var idRow=0;
+    var idBlock=0;
+    for(var i=0; i<canvasBoardGridHeight;i=i+20){
+        let canvasBoardGridBlockRow=document.createElement("div");
+        canvasBoardGridBlockRow.id='row-'+idRow;
+        canvasBoardGridBlockRow.style.width=(canvasBoardGridWidth+25)+'px';
+        canvasBoardGridBlockRow.style.height=20+'px';
+        canvasBoardGridBlockRow.style.display='flex';
+        idBlock=0;
+        for(var j=0; j<canvasBoardGridWidth;j=j+20){
+            let canvasBoardGridBlocks=document.createElement("div");
+            canvasBoardGridBlocks.id='block-'+idBlock;
+            canvasBoardGridBlocks.style.width=20+'px';
+            canvasBoardGridBlocks.style.height=20+'px';
+            canvasBoardGridBlocks.style.backgroundColor="rgba(255, 255, 255, 0.075)";
+            canvasBoardGridBlocks.addEventListener('click',(e)=>{
+                colorPixel(canvasBoard,canvasBoardGridBlocks.offsetLeft,canvasBoardGridBlocks.offsetTop);
+            });
+            canvasBoardGridBlockRow.append(canvasBoardGridBlocks);
+            idBlock++;
+        }
+        idRow++;
+        canvasBoardGrid.append(canvasBoardGridBlockRow);
+    }
+}
 
 function initCanvasBoard(){
     let canvasBoard=document.getElementById('pixel-canvas-board');
@@ -21,8 +57,8 @@ function initCanvasBoard(){
     var startX=0;
     for(let i=0; i<screenSizeWidth;i++){
         const ctx = canvasBoard.getContext('2d');
-        ctx.strokeStyle = 'rgb(40,40,40)';
-
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth=2;
         ctx.beginPath();
         ctx.moveTo(startX, 0);
         ctx.lineTo(startX, screenSizeHeight)
@@ -32,8 +68,8 @@ function initCanvasBoard(){
     var startY=0;
     for(let j=0; j<screenSizeHeight;j++){
         const ctx = canvasBoard.getContext('2d');
-        ctx.strokeStyle = 'rgb(40,40,40)';
-
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth=2;
         ctx.beginPath();
         ctx.moveTo(0, startY);
         ctx.lineTo(screenSizeWidth, startY)
@@ -55,8 +91,8 @@ function initCanvasBoardMobile(){
     var startX=0;
     for(let i=0; i<screenSizeWidth;i++){
         const ctx = canvasBoard.getContext('2d');
-        ctx.strokeStyle = 'rgb(40,40,40)';
-
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth=2;
         ctx.beginPath();
         ctx.moveTo(startX, 0);
         ctx.lineTo(startX, screenSizeHeight)
@@ -66,8 +102,8 @@ function initCanvasBoardMobile(){
     var startY=0;
     for(let j=0; j<screenSizeHeight;j++){
         const ctx = canvasBoard.getContext('2d');
-        ctx.strokeStyle = 'rgb(40,40,40)';
-
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth=2;
         ctx.beginPath();
         ctx.moveTo(0, startY);
         ctx.lineTo(screenSizeWidth, startY)

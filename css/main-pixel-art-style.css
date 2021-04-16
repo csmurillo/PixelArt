@@ -7,7 +7,10 @@ main{
     overflow: hidden;
     position: relative;
 }
-#pixel-canvas-grid-board{}
+#pixel-canvas-grid-board{
+    position:absolute;
+    /* background-color: rgba(255, 255, 255, 0.075); */
+}
 #pixel-canvas-board{}
 /* /////////////////////////////////////////////////////////////////////// */
 #color-input-container{
