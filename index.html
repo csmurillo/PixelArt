@@ -2,6 +2,8 @@
 <html>
     <head>
         <title>Pixel Art</title>
+        <!-- cropper -->
+        <link href="https://cdn.rawgit.com/fengyuanchen/cropper/v2.0.1/dist/cropper.min.css" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300&display=swap" rel="stylesheet">
         <!-- CSS only -->
@@ -10,6 +12,8 @@
         <link rel="stylesheet" type="text/css" href="./css/header-pixel-art-mobile-style.css" />
         <link rel="stylesheet" type="text/css" href="./css/main-pixel-art-style.css" />
         <link rel="stylesheet" type="text/css" href="./css/main-pixel-art-mobile-style.css" />
+        <link rel="stylesheet" type="text/css" href="./css/color-pick-container-style.css" />
+        <link rel="stylesheet" type="text/css" href="./css/color-pick-container-mobile-style.css" />
     </head>
     <body>
         <header>
@@ -19,14 +23,35 @@
                         <img id="logo" src="./assets/pixelArt.png"/>
                     </li>
                     <li id="download-container" class="center-content">
-                        <button type="button" class="btn btn-outline-primary">Download</button>
+                        <button id="largeBtn" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#myModal" data-link='none' onchange="" download>Download</button>
+                        <div id="myModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" style=" left:1vw; top:-1vh; position:absolute;">
+                            <div style="width:98vw; height:96vh;" class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div id="modal-image-container" class="modal-body">
+                                    <!-- image -->
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <div id="download-image" type="button" class="btn btn-primary"><a id="download-linkz" download>Download</a></button>
+                                </div>
+                            </div>
+                        </div>
+                        </div>                        
                     </li>
                     <li id="hamburger-icon-container" class="dropdown center-content">
-                            <button id="hamburger-icon" class="btn btn-secondary" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button id="hamburger-icon" class="btn btn-secondary" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
                                 &#9776;
                             </button>
                             <ul id="drop-down-item-container" class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                              <li><button class="dropdown-item" type="button">Download</button></li>
+                                <li>
+                                    <button class="dropdown-item" type="button">Download</button>
+                                </li>
                             </ul>
                     </li>
                 </ul>
@@ -34,24 +59,87 @@
         </header>
         <main>
             <div id="pixel-canvas-grid-board-container">
-                <!-- <div style="display: flex; position:absolute;">
-                    <div id="box-1" style='width:40px; height:40px; outline: 1px solid blue;'>
-                    </div>
-                    <div id="box-2" style='width:40px; height:40px; outline: 1px solid red; '>
-                    </div>
-                </div> -->
-                <div id="pixel-canvas-grid-board">
-                </div>
-                <canvas id="pixel-canvas-board" width="0" height="0">
-                </canvas>
-                <div id="color-input-container" onclick="colorClick();">
-                        <div id="color-container" class="center-content">
-                            <div id="color"></div>
+                <div id="pixel-board">                    
+                    <div id="temp" style="width:100%; height:116%;">
+                        <div id="pixel-canvas-grid-board">
                         </div>
-                        <div id="color-title" class="center-content">
+                        <canvas id="pixel-canvas-board" width="0" height="0">
+                        </canvas>
+                    </div>
+                </div>
+                <div id="color-position-container">
+                    <div id="current-color-input-container" onclick="colorClick();">
+                        <div id="current-color-container" class="center-content">
+                            <div id="current-color"></div>
+                        </div>
+                        <div id="current-color-title" class="center-content">
                             <label for="color">Current Color</label>
                         </div>
-                        <input type="color" id="color-input" name="color">
+                        <input type="color" id="current-color-input" name="color" onchange="changePixelColor(this.value)">
+                    </div>
+                    <!-- color container -->
+                    <div id="color-container">
+                        <div id="color-title-container">
+                            <div id="colors-title-container" data-toggle-color-title="active" onclick="toggleColorTitle(this)" class="center-content">
+                                <div>Colors</div>
+                            </div>
+                            <div id="custom-colors-title-container" data-toggle-color-title="inactive" onclick="toggleColorTitle(this)" class="center-content">
+                                <div>Custom Colors</div>
+                            </div>
+                        </div>
+                        <div id="selectable-colors-container" class="center-content">
+                            <!-- toggle between pre-define-colors or custom colors -->
+                            <div id="pre-define-colors-container">
+                                <div id="pre-define-black" onclick="changePixelColor('black');" class="pre-define-colors"></div>
+                                <div id="pre-define-white" onclick="changePixelColor('white');" class="pre-define-colors"></div>
+                                <div id="pre-define-blue" onclick="changePixelColor('blue');" class="pre-define-colors"></div>
+                                <div id="pre-define-green" onclick="changePixelColor('green');" class="pre-define-colors"></div>
+                                <div id="pre-define-red" onclick="changePixelColor('red');" class="pre-define-colors"></div>
+                                <div id="pre-define-purple" onclick="changePixelColor('purple');" class="pre-define-colors"></div>
+                                <div id="pre-define-orange" onclick="changePixelColor('orange');" class="pre-define-colors"></div>
+                                <div id="pre-define-pink" onclick="changePixelColor('pink');" class="pre-define-colors"></div>
+                                <div id="pre-define-gray" onclick="changePixelColor('gray');" class="pre-define-colors"></div>
+                                <div id="pre-define-lightgreen" onclick="changePixelColor('lightgreen');" class="pre-define-colors"></div>
+                                <div id="pre-define-lightseagreen" onclick="changePixelColor('lightseagreen');" class="pre-define-colors"></div>
+                                <div id="pre-define-lightsalmon" onclick="changePixelColor('lightsalmon');" class="pre-define-colors"></div>
+                                <div id="pre-define-lightskyblue" onclick="changePixelColor('lightskyblue');" class="pre-define-colors"></div>
+                                <div id="pre-define-lightgoldenrodyellow" onclick="changePixelColor('lightgoldenrodyellow');" class="pre-define-colors"></div>
+                            </div>
+                            <div id="custom-colors-container">
+                                <div id="custom-add-color-container" class="center-content">
+                                    <div id="add-color-container" onclick="customColor(this,document.getElementById('custom-color-input'));">
+                                        <div id="multi-color-container" class="center-content">
+                                            <div id="multi-color"></div>
+                                        </div>
+                                        <div id="add-color-title-container" class="center-content">
+                                            <div id="add-color-container">Add Color</div>
+                                        </div>
+                                        <input type="color" id="custom-color-input" name="customColor" onchange="addCustomColor(this.value)" >
+                                    </div>
+                                </div>
+                                <div id="custom-colors-catalog-container">
+                                    <!-- onchange="addCustomColorIndex(this.value)" -->
+                                    <input type="color" id="custom-color-modify-input" onchange="addCustomColorIndex(this.value);" name="customColorModify" >
+                                    <div id="custom-color-1" class="custom-color" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this);'></div>
+                                    <div id="custom-color-2" class="custom-color" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this);'></div>
+                                    <div id="custom-color-3" class="custom-color" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this);'></div>
+                                    <div id="custom-color-4" class="custom-color" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this);'></div>
+                                    <div id="custom-color-5" class="custom-color" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this);'></div>
+                                    <div id="custom-color-6" class="custom-color" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this);'></div>
+                                    <div id="custom-color-7" class="custom-color" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this);'></div>
+                                    <div id="custom-color-8" class="custom-color" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this);'></div>
+                                    <div id="custom-color-9" class="custom-color" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this);'></div>
+                                    <div id="custom-color-10" class="custom-color" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this);'></div>
+                                    <div id="custom-color-11" class="custom-color" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this);'></div>
+                                    <div id="custom-color-12" class="custom-color" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this);'></div>
+                                    <div id="custom-color-13" class="custom-color" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this);'></div>
+                                    <div id="custom-color-14" class="custom-color" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this);'></div>
+                                    <div id="custom-color-15" class="custom-color" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this);'></div>
+                                    <div id="custom-color-16" class="custom-color" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this);'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div id="pan-zoom-container">
                     <div id="pan-zoom-title-container" class="center-content">
@@ -65,12 +153,78 @@
             <!-- mobile & 600px(down) screens -->
             <div id="pixel-art-option-container-mobile">
                 <div id="color-container-mobile">
-                    <div id="color-title-container-mobile" class="center-content">
-                        Colors
+                    <!-- global div -->
+                    <div id="current-color-container-mobile">
+                        <div id="current-color-title-container-mobile" class="center-content">
+                            <div id="current-color-title-mobile">Current Color</div>
+                        </div>
+                        <div id="current-color-actual-color-container-mobile" class="center-content">
+                            <div id="current-color-mobile"></div>
+                        </div>
+                    </div>
+                    <!-- color-container children -->
+                    <div id="color-title-container-mobile">
+                        <div id="colors-title-container-mobile" data-toggle-color-title="active" onclick="toggleColorTitleMobile(this)" class="center-content">
+                            <div>Colors</div>
+                        </div>
+                        <div id="custom-colors-title-container-mobile" data-toggle-color-title="inactive" onclick="toggleColorTitleMobile(this)" class="center-content">
+                            <div>Custom Colors</div>
+                        </div>
                     </div>
                     <div id="selectable-colors-container-mobile" class="center-content">
-                        <!-- requires slider -->
-                        
+                        <!-- toggle between pre-define-colors or custom colors -->
+                        <div id="pre-define-colors-container-mobile">
+                            <div id="pre-define-black" onclick="changePixelColor('black');"  class="pre-define-colors-mobile"></div>
+                            <div id="pre-define-white" onclick="changePixelColor('white');" class="pre-define-colors-mobile"></div>
+                            <div id="pre-define-blue" onclick="changePixelColor('blue');" class="pre-define-colors-mobile"></div>
+                            <div id="pre-define-green" onclick="changePixelColor('green');" class="pre-define-colors-mobile"></div>
+                            <div id="pre-define-red" onclick="changePixelColor('red');" class="pre-define-colors-mobile"></div>
+                            <div id="pre-define-purple" onclick="changePixelColor('purple');" class="pre-define-colors-mobile"></div>
+                            <div id="pre-define-orange" onclick="changePixelColor('orange');" class="pre-define-colors-mobile"></div>
+                            <div id="pre-define-pink" onclick="changePixelColor('pink');" class="pre-define-colors-mobile"></div>
+                            <div id="pre-define-gray" onclick="changePixelColor('gray');" class="pre-define-colors-mobile"></div>
+                            <div id="pre-define-lightgreen" onclick="changePixelColor('lightgreen');" class="pre-define-colors-mobile"></div>
+                            <div id="pre-define-lightseagreen" onclick="changePixelColor('lightseagreen');" class="pre-define-colors-mobile"></div>
+                            <div id="pre-define-lightsalmon" onclick="changePixelColor('lightsalmon');" class="pre-define-colors-mobile"></div>
+                            <div id="pre-define-lightskyblue" onclick="changePixelColor('lightskyblue');" class="pre-define-colors-mobile"></div>
+                            <div id="pre-define-lightgoldenrodyellow" onclick="changePixelColor('lightgoldenrodyellow');" class="pre-define-colors-mobile"></div>
+                            <div id="pre-define-lightcoral" onclick="changePixelColor('lightcoral');" class="pre-define-colors-mobile"></div>
+                            <div id="pre-define-lightslategray" onclick="changePixelColor('lightslategray');" class="pre-define-colors-mobile"></div>
+                            <div id="pre-define-lightyellow" onclick="changePixelColor('lightyellow');" class="pre-define-colors-mobile"></div>
+                            <div id="pre-define-lightpink" onclick="changePixelColor('lightpink');" class="pre-define-colors-mobile"></div>
+                        </div>
+                        <div id="custom-colors-container-mobile">
+                            <div id="custom-add-color-container-mobile" class="center-content">
+                                <div id="add-color-container-mobile" onclick="customColor(this,document.getElementById('custom-color-input-mobile'));">
+                                    <div id="multi-color-container-mobile" class="center-content">
+                                        <div id="multi-color-mobile"></div>
+                                    </div>
+                                    <div id="add-color-title-container-mobile" class="center-content">
+                                        <div id="add-color-title">Add Color</div>
+                                    </div>
+                                    <input type="color" id="custom-color-input-mobile" name="customColorMobile" onchange="addCustomColor(this.value)">
+                                </div>
+                            </div>
+                            <div id="custom-colors-catalog-container-mobile">
+                                <input type="color" id="custom-color-modify-input-mobile" onchange="addCustomColorMobileIndex(this.value);" name="customColorMobileModify"/>
+                                    <div id="custom-color-1-mobile" class="custom-color-mobile" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this,"mobile");'></div>
+                                    <div id="custom-color-2-mobile" class="custom-color-mobile" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this,"mobile");' ></div>
+                                    <div id="custom-color-3-mobile" class="custom-color-mobile" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this,"mobile");' ></div>
+                                    <div id="custom-color-4-mobile" class="custom-color-mobile" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this,"mobile");' ></div>
+                                    <div id="custom-color-5-mobile" class="custom-color-mobile" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this,"mobile");' ></div>
+                                    <div id="custom-color-6-mobile" class="custom-color-mobile" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this,"mobile");' ></div>
+                                    <div id="custom-color-7-mobile" class="custom-color-mobile" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this,"mobile");' ></div>
+                                    <div id="custom-color-8-mobile" class="custom-color-mobile" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this,"mobile");' ></div>
+                                    <div id="custom-color-9-mobile" class="custom-color-mobile" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this,"mobile");' ></div>
+                                    <div id="custom-color-10-mobile" class="custom-color-mobile" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this,"mobile");' ></div>
+                                    <div id="custom-color-11-mobile" class="custom-color-mobile" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this,"mobile");' ></div>
+                                    <div id="custom-color-12-mobile" class="custom-color-mobile" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this,"mobile");' ></div>
+                                    <div id="custom-color-13-mobile" class="custom-color-mobile" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this,"mobile");' ></div>
+                                    <div id="custom-color-14-mobile" class="custom-color-mobile" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this,"mobile");' ></div>
+                                    <div id="custom-color-15-mobile" class="custom-color-mobile" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this,"mobile");' ></div>
+                                    <div id="custom-color-16-mobile" class="custom-color-mobile" data-custom-color="blank" onclick="changePixelColorCustomContainer(this);" ondblclick='modifyColor(this,"mobile");' ></div>
+                                </div>
+                        </div>
                     </div>
                 </div>
                 <div id="pan-zoom-container-mobile">
@@ -84,11 +238,21 @@
                 </div>
             </div>
         </main>
-
     </body>
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-    <script src="/js/boardOption.js"></script>
+    <script src='https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js'></script>
+    <!-- <script src='https://cdn.jsdelivr.net/npm/@panzoom/panzoom@4.3.2/dist/panzoom.min.js'></script> -->
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/fengyuanchen/cropper/v2.0.1/dist/cropper.min.js"></script>
     <script src="/js/initBoard.js"></script>
-    
+    <script src="/js/boardOption.js"></script>
+    <script src="js/modalCropImage.js"></script>
+    <script src="js/panZoom.js"></script>
+    <script src="js/toggleColors.js"></script>
+    <script src="js/colorBoard.js"></script>
+    <script src="js/colorPicker.js"></script>
+
+    <!-- JavaScript Bundle with Popper -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script> -->
 </html>

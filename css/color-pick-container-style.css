@@ -1,0 +1,241 @@
+#color-container-mobile{
+    width:100%; height: 100%;
+}
+#color-title-container-mobile{
+    width: 100%; height: 20%;
+    background-color: rgb(250, 250, 250);
+    display: flex;
+}
+/* color title container-mobile children */
+/* colors-title-container-mobile, custom-colors-title-container-mobile */
+#colors-title-container-mobile:hover,#custom-colors-title-container-mobile:hover{
+    border-bottom: 4px solid black;
+    cursor: pointer;
+}
+#colors-title-container-mobile{
+    border-right: .5px solid black;
+    border-bottom: 4px solid black !important;
+}
+#colors-title-container-mobile,#custom-colors-title-container-mobile{
+    width: 50%; height: 100%;
+    border-bottom: .5px solid black;
+}
+/* END END END END END END END END */
+#selectable-colors-container-mobile{
+    width: 100%; height: 80%;
+}
+/* selectable-colors-container children: pre-define-colors-container-mobile, custom-colors-container-mobile */
+#pre-define-colors-container-mobile{
+    max-width: 324px;
+    width: 81%; height: 60%;
+    /* background-color: cyan; */
+    display: block;
+}
+/* pre-define-colors-container-mobile children */
+.pre-define-colors-mobile{
+    width:22px; height: 22px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border:1px solid black;
+}
+.pre-define-colors-mobile:hover{
+    cursor: pointer;
+}
+#pre-define-black{
+    background-color: black;
+}
+#pre-define-white{
+    background-color: white;
+}
+#pre-define-blue{
+    background-color: blue;
+}
+#pre-define-green{
+    background-color:green;
+}
+#pre-define-red{
+    background-color: red;
+}
+#pre-define-purple{
+    background-color: purple;
+}
+#pre-define-orange{
+    background-color: orange;
+}
+#pre-define-pink{
+    background-color: pink;
+}
+#pre-define-gray{
+    background-color: gray;
+}
+#pre-define-lightgreen{
+    background-color: lightgreen;
+}
+#pre-define-lightseagreen{
+    background-color: lightseagreen;
+}
+#pre-define-lightsalmon{
+    background-color: lightsalmon;
+}
+#pre-define-lightskyblue{
+    background-color: lightskyblue;
+}
+#pre-define-lightgoldenrodyellow{
+    background-color: lightgoldenrodyellow;
+}
+#pre-define-lightcoral{
+    background-color: lightcoral;
+}
+#pre-define-lightslategray{
+    background-color: lightslategray;
+}
+#pre-define-lightyellow{
+    background-color: lightyellow;
+}
+#pre-define-lightpink{
+    background-color: lightpink;
+}
+#custom-colors-container-mobile{
+    max-width: 366px;
+    width: 92%; height: 80%;
+    display: none;
+}
+/* custom-colors-container-mobile children */
+#custom-add-color-container-mobile{
+    width: 30%; height: 100%;
+}
+/* custom-add-color-container-mobile children */
+#add-color-container-mobile{
+    width: 90%; height: 90%;
+}
+#multi-color-container-mobile{
+    width: 100%; height: 70%;
+}
+#multi-color-mobile{
+    width:45px; height: 40px;
+    background-image:
+    linear-gradient(
+    45deg,
+    rgb(255, 0, 0),
+    rgb(238, 255, 0),
+    rgb(60, 255, 0), 
+    rgb(0, 204, 255),
+    rgb(0, 17, 255),
+    rgb(255, 0, 255),
+    rgb(255, 0, 0)
+    );
+}
+#add-color-title-container-mobile{
+    width: 100%; height: 30%;
+}
+#add-color-container-mobile{
+    font-size:13px;
+}
+#custom-color-input-mobile{
+    width:0px; height: 0px;
+    z-index: -5;
+    position: absolute;
+}
+#custom-colors-catalog-container-mobile{
+    width: 70%; height: 100%;
+    display: flex;
+    flex-wrap:  wrap;
+}
+#custom-color-modify-input-mobile{
+    width:0px; height: 0px;
+    z-index: -5;
+    position: absolute;
+}
+.custom-color-mobile{
+    width:20px; height:20px; 
+    border:1px solid black; margin:5px;
+}
+/* global div for current color on mobile device screen size */
+#current-color-container-mobile{
+    width: 150px; height: 30px;
+    position: absolute;
+    top: -30px;
+    border-top-right-radius: 5px;
+    border:1px solid black;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+}
+#current-color-mobile{
+    width:25px; height: 25px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 5px;
+}
+#current-color-title-container-mobile{
+    width:70%; height:100%;
+    /* background-color: darkseagreen; */
+}
+#current-color-actual-color-container-mobile{
+    width:30%; height: 100%;
+    /* background-color: darkblue; */
+}
+#current-color-title-mobile{
+    font-size: 16px;
+}
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    #pre-define-colors-container-mobile{
+        max-width: 624px;
+        width: 81%; height: 70%;
+        /* background-color: cyan; */
+        display: block;
+    }
+    .pre-define-colors-mobile{
+        width:50px; height:50px; 
+        border:1px solid black; 
+        margin:5px;
+    }
+    #custom-colors-container-mobile{
+        max-width: 706px;
+        width: 92%; height: 80%;
+        display: none;
+    }
+    #multi-color-mobile{
+        width:80px; height: 80px;
+    }
+    #add-color-title{
+        font-size: 24px;
+    }
+    #custom-colors-catalog-container-mobile{
+        max-width: 525px;
+    }
+    .custom-color-mobile{
+        width:50px; height:50px; 
+        border:1px solid black; margin:5px;
+    }
+    /* global div current color */
+    #current-color-container-mobile{
+        width: 250px; height: 90px;
+        position: absolute;
+        top: -90px;
+        border-top-right-radius: 5px;
+        border:1px solid black;
+        background-color: rgb(255, 255, 255);
+        display: flex;
+    }
+    #current-color-mobile{
+        width:50px; height: 50px;
+        background-color: rgb(0, 0, 0);
+        border-radius: 5px;
+    }
+    #current-color-title-container-mobile{
+        width:70%; height:100%;
+        /* background-color: darkseagreen; */
+    }
+    #current-color-actual-color-container-mobile{
+        width:30%; height: 100%;
+        /* background-color: darkblue; */
+    }
+    #current-color-title-mobile{
+        font-size: 26px;
+    }
+}
