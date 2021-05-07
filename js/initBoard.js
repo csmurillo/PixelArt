@@ -18,6 +18,8 @@ function initCanvasBoardGrid(){
     let canvasBoardGridHeight=canvasBoard.offsetHeight;
     canvasBoardGrid.style.width=canvasBoardGridWidth+'px';
     canvasBoardGrid.style.height=canvasBoardGridHeight+'px';
+    var pixelContainer = document.getElementById('pixel-container');
+    pixelContainer.style.width=(canvasBoardGridWidth+10)+'px';
     // id row & id block
     var idRow=0;
     var idBlock=0;

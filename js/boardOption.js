@@ -3,6 +3,7 @@ function colorClick(){
 }
 var BoardOptionCtx='';
 function colorPixel(canvas,block,x,y){
+    console.log('colorPixelcolorPixelcolorPixelcolorPixel');
     var ctx = canvas.getContext('2d');
     BoardOptionCtx=ctx;
     if(BoardOptionCtx.fillStyle==null){
@@ -10,7 +11,7 @@ function colorPixel(canvas,block,x,y){
     }
     block.style.color = BoardOptionCtx.fillStyle;
     BoardOptionCtx.fillRect(x+1, y+1, 18, 18);
-    // console.log(canvas+'x'+x+'y'+y);
+    console.log(canvas+'x'+x+'y'+y);
 }
 function changePixelColor(color){
     console.log(color);

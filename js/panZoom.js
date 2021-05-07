@@ -1,28 +1,89 @@
-// const elem = document.getElementById('temp');
-// const panzoom=Panzoom(elem, { contain: 'outside', maxScale: 3 });
-// elem.addEventListener('dblclick',panzoom.zoomIn);
+var pixelContainer = document.getElementById('pixel-container');
+// button zoomOut & zoomIn
+const zoomOut = document.getElementById('zoom-out');
+const zoomIn = document.getElementById('zoom-in');
 
-// const button = document.getElementById('zoomInz');
-// button.addEventListener('click', panzoom.zoomIn);
-var ele=null;
-var panzoom=null;
-var pixelGridCanvas=document.getElementById('pixel-canvas-grid-board');
-var panZoom = document.getElementById('pan-zoom');
-console.log(panZoom.checked+'k');
-panZoom.addEventListener('click',()=>{
-    let panZoom = document.getElementById('pan-zoom');
-    // console.log(panZoom.checked+'k2');
-    if(panZoom.checked){
-        elem = document.getElementById('temp');
-        panzoom=Panzoom(elem, { contain: 'outside', maxScale: 3 });
+// check boxes desktop & mobile
+var panZoomCheckBox = document.getElementById('pan-zoom');
+var panZoomMobileCheckBox = document.getElementById('pan-zoom-mobile');
+var panzoomGlobal='';
+panzoomGlobal = Panzoom(pixelContainer, { contain: 'outside', maxScale: 3, cursor: 'default' });
+// track pan value (X,Y) & Scale
+var panValueX='';
+var panValueY='';
+var panScale='';
+// link zoom buttons to panzoom
+zoomOut.addEventListener('click',()=>{panzoomGlobal.zoomOut();});
+zoomIn.addEventListener('click',()=>{panzoomGlobal.zoomIn();});
+// destroy panzoom but keeps functionality of zoomOut & zoomIn
+panzoomGlobal.destroy();
+// panzoomlocal for onclick checkboxes
+var panzoomLocal='';
+// used to halt code of async function pan() from panzoom
+var stops='false';
+
+panZoomCheckBox.addEventListener('click',()=>{   
+    if(panZoomCheckBox.checked){
+            stops='true';
+            panzoomLocal = Panzoom(pixelContainer, { contain: 'outside', maxScale: 3, cursor: 'default' });
+            panzoomLocal.zoom(panScale);
+            setTimeout(() => {
+                panzoomLocal.pan(panValueX,panValueY);
+            });
+            setTimeout(() => {
+                zoomOut.addEventListener('click',()=>{panzoomLocal.zoomOut();});
+                zoomIn.addEventListener('click',()=>{panzoomLocal.zoomIn();});
+                stops='false';
+            },40);
+            panZoomMobileCheckBox.checked=true;
     }
     else{
-        console.log(ele+''+panZoom);
-        ele=null;
-        panzoom.destroy();
-        panZoom=null;
-        console.log(ele+''+panZoom);
-        pixelGridCanvas.style.cursor='auto';
+        panzoomLocal.destroy();
+        panZoomMobileCheckBox.checked=false;
     }
 });
-
+panZoomMobileCheckBox.addEventListener('click',()=>{
+    if(panZoomMobileCheckBox.checked){
+            stops='true';
+            panzoomLocal = Panzoom(pixelContainer, { contain: 'outside', maxScale: 3, cursor: 'default' });
+            panzoomLocal.zoom(panScale);
+            setTimeout(() => {
+                panzoomLocal.pan(panValueX,panValueY);
+            });
+            setTimeout(() => {
+                zoomOut.addEventListener('click',()=>{panzoomLocal.zoomOut();});
+                zoomIn.addEventListener('click',()=>{panzoomLocal.zoomIn();});
+                stops='false';
+            },40);
+            panZoomCheckBox.checked=true;
+    }
+    else{
+        panzoomLocal.destroy();
+        panZoomCheckBox.checked=false;
+    }
+   
+});
+// track pan x & y & scale
+pixelContainer.addEventListener('panzoomchange', (event) => {
+    if(panzoomLocal==''){
+        panValueX=panzoomGlobal.getPan().x;
+        panValueY=panzoomGlobal.getPan().y;
+        panScale=panzoomGlobal.getScale();
+    }
+    else{
+        if(stops=='false'){
+            panValueX=panzoomLocal.getPan().x;
+            panValueY=panzoomLocal.getPan().y;
+            panScale=panzoomLocal.getScale();
+        }
+    }
+});
+// panzoom error on screen size change
+window.addEventListener('resize', ()=>{
+    if(window.outerWidth>800){
+        panzoomLocal.zoom(1);
+        setTimeout(() => {
+            panzoomLocal.pan(panValueX,panValueY);
+        });
+    }
+});
