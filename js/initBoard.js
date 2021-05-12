@@ -41,6 +41,10 @@ function initCanvasBoardGrid(){
             canvasBoardGridBlocks.addEventListener('click',(e)=>{
                 colorPixel(canvasBoard,canvasBoardGridBlocks,canvasBoardGridBlocks.offsetLeft,canvasBoardGridBlocks.offsetTop);
             });
+            var intervalId = window.setInterval(function(){
+                console.log();
+                
+              }, 1);
             // draw
             var activeDraw=false;
             canvasBoardGridBlocks.addEventListener('mouseenter',(e)=>{
