@@ -77,9 +77,6 @@ function initCanvasBoard(){
     canvasBoard.height=screenSizeHeight;
     canvasBoard.style.width=screenSizeWidth+'px';
     canvasBoard.style.height=screenSizeHeight+'px';
-    // const ctx = canvasBoard.getContext('2d');
-    // ctx.fillStyle = "white";
-    // ctx.fillRect(0, 0, canvasBoard.width, canvasBoard.height);
     var startX=0;
     for(let i=0; i<screenSizeWidth;i++){
         const ctx = canvasBoard.getContext('2d');
