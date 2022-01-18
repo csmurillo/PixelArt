@@ -32,7 +32,6 @@ function toggleColorTitle(element){
     }
 }
 function toggleColorTitleMobile(element){
-    console.log(element.dataset.toggleColorTitle);
     if(element.id=='colors-title-container-mobile'){
         var customColorsTitleContainerMobile=document.getElementById('custom-colors-title-container-mobile');
         var status=element.dataset.toggleColorTitle;
@@ -80,7 +79,7 @@ function addCustomColor(color){
             customColorContainerMobile.children[i].style.backgroundColor=''+color;
             return;
         }
-        console.log(customColorContainer.children[i]);
+        // console.log(customColorContainer.children[i]);
     }
 }
 function addCustomColorIndex(color){

@@ -1,15 +1,18 @@
 window.onload=()=>{
+    initCanvas();
+};
+function initCanvas(){
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
         initCanvasBoardMobile();
         initCanvasBoardGrid();
-        console.log('MOBILE');
+        // console.log('MOBILE');
     }
     else{
         initCanvasBoard();
         initCanvasBoardGrid();
-        console.log('BROWSER');
+        // console.log('BROWSER');
     }
-};
+}
 function initCanvasBoardGrid(){
     let canvasBoardGrid=document.getElementById('pixel-canvas-grid-board');
     canvasBoardGrid.style.backgroundColor="";
@@ -33,26 +36,24 @@ function initCanvasBoardGrid(){
         for(var j=0; j<canvasBoardGridWidth;j=j+20){
             let canvasBoardGridBlocks=document.createElement("div");
             canvasBoardGridBlocks.id='block-'+idBlock;
-            // canvasBoardGridBlocks.style.border='1px solid black';
             canvasBoardGridBlocks.style.width=20+'px';
             canvasBoardGridBlocks.style.height=20+'px';
             canvasBoardGridBlocks.style.backgroundColor="rgba(255, 255, 255, 0.075)";
             canvasBoardGridBlocks.style.color="rgba(255, 255, 255, 0.075)";
             canvasBoardGridBlocks.addEventListener('click',(e)=>{
-                colorPixel(canvasBoard,canvasBoardGridBlocks,canvasBoardGridBlocks.offsetLeft,canvasBoardGridBlocks.offsetTop);
+                if(!panzoomsession){
+                    colorPixel(canvasBoard,canvasBoardGridBlocks,canvasBoardGridBlocks.offsetLeft,canvasBoardGridBlocks.offsetTop);
+                }
             });
-            var intervalId = window.setInterval(function(){
-                console.log();
-                
-              }, 1);
             // draw
             var activeDraw=false;
             canvasBoardGridBlocks.addEventListener('mouseenter',(e)=>{
-                // console.log('ID'+canvasBoardGridBlocks.id);
                 if(activeDraw==false){
                     return;
                 }
-                colorPixel(canvasBoard,canvasBoardGridBlocks,canvasBoardGridBlocks.offsetLeft,canvasBoardGridBlocks.offsetTop);
+                if(!panzoomsession){
+                    colorPixel(canvasBoard,canvasBoardGridBlocks,canvasBoardGridBlocks.offsetLeft,canvasBoardGridBlocks.offsetTop);
+                }
             });
             canvasBoardGridBlocks.addEventListener('mousedown',(e)=>{
                 activeDraw=true;
@@ -68,7 +69,6 @@ function initCanvasBoardGrid(){
         canvasBoardGrid.append(canvasBoardGridBlockRow);
     }
 }
-
 function initCanvasBoard(){
     let canvasBoard=document.getElementById('pixel-canvas-board');
     let screenSizeWidth=window.screen.availWidth;

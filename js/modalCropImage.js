@@ -80,7 +80,6 @@ $('#myModal').on('shown.bs.modal', function (e) {
         var screenSizeHeight=document.body.clientHeight;
         if(modalOpenScreenSize==1100){
             var cropperCanvas=document.getElementsByClassName('cropper-canvas')[0];
-            console.log(cropperCanvas.offsetWidth+'ekjnkejnkjn');
             cropper.moveTo(screenSizeWidth/4,screenSizeHeight/4);
             cropper.setCropBoxData({
                 width:cropperCanvas.offsetWidth+100,
@@ -91,7 +90,6 @@ $('#myModal').on('shown.bs.modal', function (e) {
         }
         else if(modalOpenScreenSize=='mid'){
             var cropperCanvas=document.getElementsByClassName('cropper-canvas')[0];
-            console.log(cropperCanvas.offsetWidth+'ekjnkejnkjn');
             cropper.moveTo(screenSizeWidth/4,screenSizeHeight/4);
             cropper.setCropBoxData({
                 width:cropperCanvas.offsetWidth+100,

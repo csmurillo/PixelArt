@@ -21,8 +21,11 @@ panzoomGlobal.destroy();
 var panzoomLocal='';
 // used to halt code of async function pan() from panzoom
 var stops='false';
+// panzoomsession
+var panzoomsession=false;
 
 panZoomCheckBox.addEventListener('click',()=>{   
+    panzoomsession=true;
     if(panZoomCheckBox.checked){
             stops='true';
             panzoomLocal = Panzoom(pixelContainer, { contain: 'outside', maxScale: 3, cursor: 'default' });
@@ -40,9 +43,11 @@ panZoomCheckBox.addEventListener('click',()=>{
     else{
         panzoomLocal.destroy();
         panZoomMobileCheckBox.checked=false;
+        panzoomsession=false;
     }
 });
 panZoomMobileCheckBox.addEventListener('click',()=>{
+    panzoomsession=true;
     if(panZoomMobileCheckBox.checked){
             stops='true';
             panzoomLocal = Panzoom(pixelContainer, { contain: 'outside', maxScale: 3, cursor: 'default' });
@@ -60,6 +65,7 @@ panZoomMobileCheckBox.addEventListener('click',()=>{
     else{
         panzoomLocal.destroy();
         panZoomCheckBox.checked=false;
+        panzoomsession=false;
     }
    
 });
