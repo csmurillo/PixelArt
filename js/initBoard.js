@@ -48,17 +48,39 @@ function initCanvasBoardGrid(){
             // draw
             var activeDraw=false;
             canvasBoardGridBlocks.addEventListener('mouseenter',(e)=>{
+                console.log('mouse move:');
                 if(activeDraw==false){
                     return;
                 }
+                console.log(canvasBoardGridBlocks);
                 if(!panzoomsession){
                     colorPixel(canvasBoard,canvasBoardGridBlocks,canvasBoardGridBlocks.offsetLeft,canvasBoardGridBlocks.offsetTop);
+                    console.log('MOUSEX:'+canvasBoardGridBlocks.offsetLeft+'Y:'+canvasBoardGridBlocks.offsetTop);
                 }
             });
             canvasBoardGridBlocks.addEventListener('mousedown',(e)=>{
                 activeDraw=true;
             });
             canvasBoardGridBlocks.addEventListener('mouseup',(e)=>{
+                activeDraw=false;
+            });
+            canvasBoardGrid.addEventListener('touchmove',(e)=>{
+                var touch = e.touches[0] || e.changedTouches[0];
+                x = touch.pageX;
+                y = touch.pageY;
+
+                if(activeDraw==false){
+                    return;
+                }
+                let block = document.elementFromPoint(x,y);
+                if(!panzoomsession){
+                    colorPixel(canvasBoard,block,block.offsetLeft,block.offsetTop);
+                }
+            });
+            canvasBoardGridBlocks.addEventListener('touchstart',(e)=>{
+                activeDraw=true;
+            });
+            canvasBoardGridBlocks.addEventListener('touchend',(e)=>{
                 activeDraw=false;
             });
 
