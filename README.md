@@ -24,7 +24,7 @@ Pixel Art Board where users can create anything they want from a shiba inu to wh
 
 ### Links
 
-- Live Site URL: [https://pixel-art-github.herokuapp.com/]
+- Live Site URL: [https://pixel-art-demo.herokuapp.com/]
 
 
 ## Author
